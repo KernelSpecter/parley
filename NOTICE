@@ -1,0 +1,26 @@
+Parley includes or uses the following third-party material.
+
+ONNX Runtime
+  https://github.com/microsoft/onnxruntime
+  Copyright (c) Microsoft Corporation. MIT License.
+  Bundled in the mod jar (Java bindings and the Windows x64 native libraries).
+
+Language profiles (src/main/resources/assets/parley/langdetect/*, except words/)
+  From language-detection by Nakatani Shuyo, as packaged by
+  https://github.com/optimaize/language-detector
+  Apache License 2.0, see assets/parley/langdetect/LICENSE-language-profiles.txt.
+
+Word frequency lists (src/main/resources/assets/parley/langdetect/words/*)
+  From https://github.com/hermitdave/FrequencyWords, built from OpenSubtitles.
+  Copyright (c) 2016 Hermit Dave. Content licensed CC BY-SA 4.0.
+  Changes: each list is cut to its 3000 most frequent words.
+  These files are shared under the same CC BY-SA 4.0 license.
+
+English abbreviations (part of src/main/resources/assets/parley/slang/en.txt)
+  From https://github.com/c-Cyril-l/Internet-Abbreviations
+  Copyright (c) 2018 c-Cyril-l. MIT License.
+  Changes: filtered, lowercased and merged with Parley's own entries.
+
+Opus-MT translation models
+  https://github.com/Helsinki-NLP/Opus-MT, ONNX exports from https://huggingface.co/Xenova
+  Apache License 2.0. Not included in this repository or the jar; downloaded on first use.

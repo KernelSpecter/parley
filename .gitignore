@@ -1,0 +1,16 @@
+# gradle
+build
+.gradle
+
+# ide
+out
+*.iml
+.idea
+eclipse
+bin
+.classpath
+.project
+.settings
+
+# forge dev run dir (models download here)
+run

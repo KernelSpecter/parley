@@ -1,0 +1,10 @@
+# Dutch chat shorthand -> full words, applied before translating incoming Dutch.
+idd	inderdaad
+iig	in ieder geval
+zgn	zogenaamd
+ff	even
+w8	wacht
+kzal	ik zal
+kben	ik ben
+khb	ik heb
+egt	echt

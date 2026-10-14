@@ -1,0 +1,208 @@
+[
+ {
+  "input": "hola como estas",
+  "pieces": [
+   "▁hola",
+   "▁como",
+   "▁estas"
+  ],
+  "ids": [
+   22088,
+   68,
+   666,
+   0
+  ],
+  "out_ids": [
+   3923,
+   370,
+   40,
+   53
+  ],
+  "output": "Hello how you are"
+ },
+ {
+  "input": "alguien quiere jugar bedwars conmigo?",
+  "pieces": [
+   "▁alguien",
+   "▁quiere",
+   "▁jugar",
+   "▁bed",
+   "war",
+   "s",
+   "▁conmigo",
+   "?"
+  ],
+  "ids": [
+   1638,
+   1711,
+   4991,
+   2751,
+   8310,
+   9,
+   3407,
+   21,
+   0
+  ],
+  "out_ids": [
+   35954,
+   325,
+   13,
+   1227,
+   2751,
+   8310,
+   9,
+   41,
+   74,
+   21
+  ],
+  "output": "Anybody want to play bedwars with me?"
+ },
+ {
+  "input": "eres muy malo jajaja",
+  "pieces": [
+   "▁eres",
+   "▁muy",
+   "▁malo",
+   "▁ja",
+   "ja",
+   "ja"
+  ],
+  "ids": [
+   1828,
+   239,
+   6780,
+   6911,
+   1250,
+   1250,
+   0
+  ],
+  "out_ids": [
+   99,
+   20,
+   100,
+   688,
+   2552,
+   3
+  ],
+  "output": "You're too bad."
+ },
+ {
+  "input": "q onda wey, vamos a jugar",
+  "pieces": [
+   "▁q",
+   "▁onda",
+   "▁w",
+   "ey",
+   ",",
+   "▁vamos",
+   "▁a",
+   "▁jugar"
+  ],
+  "ids": [
+   21332,
+   22319,
+   6824,
+   6733,
+   2,
+   1911,
+   8,
+   4991,
+   0
+  ],
+  "out_ids": [
+   124,
+   151,
+   12894,
+   2,
+   965,
+   20,
+   9,
+   1227
+  ],
+  "output": "Wey wave, let's play"
+ },
+ {
+  "input": "no se que hacer aqui",
+  "pieces": [
+   "▁no",
+   "▁se",
+   "▁que",
+   "▁hacer",
+   "▁aqui"
+  ],
+  "ids": [
+   37,
+   26,
+   15,
+   258,
+   11473,
+   0
+  ],
+  "out_ids": [
+   33,
+   244,
+   20,
+   56,
+   161,
+   150,
+   13,
+   113,
+   227,
+   3
+  ],
+  "output": "I don't know what to do here."
+ },
+ {
+  "input": "tengo hambre",
+  "pieces": [
+   "▁tengo",
+   "▁hambre"
+  ],
+  "ids": [
+   1112,
+   6553,
+   0
+  ],
+  "out_ids": [
+   33,
+   20,
+   92,
+   14934,
+   3
+  ],
+  "output": "I'm hungry."
+ },
+ {
+  "input": "el team de rojo esta haciendo trampa",
+  "pieces": [
+   "▁el",
+   "▁te",
+   "am",
+   "▁de",
+   "▁rojo",
+   "▁esta",
+   "▁haciendo",
+   "▁trampa"
+  ],
+  "ids": [
+   14,
+   178,
+   2100,
+   4,
+   9169,
+   135,
+   1545,
+   15070,
+   0
+  ],
+  "out_ids": [
+   42,
+   1203,
+   2063,
+   31,
+   38896,
+   3
+  ],
+  "output": "The red team is cheating."
+ }
+]

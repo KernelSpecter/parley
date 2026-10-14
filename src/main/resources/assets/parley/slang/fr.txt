@@ -1,0 +1,33 @@
+# French chat shorthand -> full words, applied before translating incoming French.
+slt	salut
+cc	coucou
+stp	s'il te plaît
+svp	s'il vous plaît
+jsp	je sais pas
+jsais	je sais
+pk	pourquoi
+pq	pourquoi
+pcq	parce que
+psk	parce que
+tkt	t'inquiète
+mdr	haha
+ptdr	haha
+bcp	beaucoup
+dsl	désolé
+qqn	quelqu'un
+qqch	quelque chose
+tjrs	toujours
+tjs	toujours
+pr	pour
+vrm	vraiment
+mtn	maintenant
+jvais	je vais
+chui	je suis
+chuis	je suis
+jsuis	je suis
+t	tu es
+c	c'est
+koi	quoi
+oklm	tranquille
+bg	beau gosse
+wsh	salut

@@ -1,0 +1,8 @@
+[{
+  "modid": "parley",
+  "name": "Parley",
+  "description": "Offline chat translation. No API keys, no rate limits: models run on your own PC.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "authorList": ["KernelSpecter"]
+}]

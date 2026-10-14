@@ -1,0 +1,179 @@
+[
+ {
+  "input": "hi, anyone want to play bedwars with me?",
+  "pieces": [
+   "▁hi",
+   ",",
+   "▁anyone",
+   "▁want",
+   "▁to",
+   "▁play",
+   "▁bed",
+   "war",
+   "s",
+   "▁with",
+   "▁me",
+   "?"
+  ],
+  "ids": [
+   14919,
+   4246,
+   2,
+   3298,
+   335,
+   12,
+   1483,
+   2973,
+   10500,
+   6,
+   44,
+   88,
+   19,
+   0
+  ],
+  "out_ids": [
+   10743,
+   2,
+   5614,
+   2750,
+   35272,
+   5,
+   5784,
+   7237,
+   19
+  ],
+  "output": "Olá, alguém quer brincar de cama comigo?"
+ },
+ {
+  "input": "you are really bad lol",
+  "pieces": [
+   "▁you",
+   "▁are",
+   "▁really",
+   "▁bad",
+   "▁lo",
+   "l"
+  ],
+  "ids": [
+   14919,
+   33,
+   63,
+   713,
+   2278,
+   172,
+   189,
+   0
+  ],
+  "out_ids": [
+   451,
+   139,
+   4103,
+   20764,
+   172,
+   189
+  ],
+  "output": "você é realmente mau lol"
+ },
+ {
+  "input": "good game everyone",
+  "pieces": [
+   "▁good",
+   "▁game",
+   "▁everyone"
+  ],
+  "ids": [
+   14919,
+   394,
+   1805,
+   3060,
+   0
+  ],
+  "out_ids": [
+   9971,
+   3521,
+   64,
+   505
+  ],
+  "output": "jogo bom para todos"
+ },
+ {
+  "input": "where is the shop?",
+  "pieces": [
+   "▁where",
+   "▁is",
+   "▁the",
+   "▁shop",
+   "?"
+  ],
+  "ids": [
+   14919,
+   330,
+   28,
+   4,
+   8933,
+   19,
+   0
+  ],
+  "out_ids": [
+   7389,
+   7592,
+   9,
+   22429,
+   19
+  ],
+  "output": "Onde fica a loja?"
+ },
+ {
+  "input": "I'm hungry",
+  "pieces": [
+   "▁I",
+   "'",
+   "m",
+   "▁hungry"
+  ],
+  "ids": [
+   14919,
+   22,
+   7,
+   80,
+   17665,
+   0
+  ],
+  "out_ids": [
+   3412,
+   157,
+   30242
+  ],
+  "output": "Estou com fome"
+ },
+ {
+  "input": "can someone help me please",
+  "pieces": [
+   "▁can",
+   "▁someone",
+   "▁help",
+   "▁me",
+   "▁please"
+  ],
+  "ids": [
+   14919,
+   112,
+   2186,
+   575,
+   88,
+   1549,
+   0
+  ],
+  "out_ids": [
+   18362,
+   924,
+   88,
+   7187,
+   2,
+   89,
+   1379,
+   19
+  ],
+  "output": "Alguém pode me ajudar, por favor?"
+ }
+]

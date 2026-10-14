@@ -1,0 +1,19 @@
+# Turkish chat shorthand -> full words, applied before translating incoming Turkish.
+slm	selam
+mrb	merhaba
+nbr	ne haber
+tmm	tamam
+tm	tamam
+bn	ben
+sn	sen
+bi	bir
+naber	ne haber
+napıyon	ne yapıyorsun
+napiyon	ne yapıyorsun
+kanka	arkadaş
+knk	arkadaş
+bşy	bir şey
+bisey	bir şey
+msj	mesaj
+tşk	teşekkürler
+tsk	teşekkürler

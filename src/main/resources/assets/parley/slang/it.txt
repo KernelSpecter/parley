@@ -1,0 +1,18 @@
+# Italian chat shorthand -> full words, applied before translating incoming Italian.
+nn	non
+cmq	comunque
+xke	perché
+xké	perché
+xche	perché
+perche	perché
+ke	che
+k	che
+qlc	qualcosa
+qlcn	qualcuno
+tvb	ti voglio bene
+grz	grazie
+x	per
+dv	dove
+sn	sono
+tt	tutto
+tutt	tutti

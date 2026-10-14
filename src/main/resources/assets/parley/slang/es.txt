@@ -1,0 +1,31 @@
+# Spanish chat shorthand -> full words, applied before translating incoming Spanish.
+q	que
+k	que
+ke	que
+xq	porque
+pq	porque
+porq	porque
+xk	porque
+tmb	también
+tb	también
+tbn	también
+d	de
+x	por
+xfa	por favor
+porfa	por favor
+pls	por favor
+ntp	no te preocupes
+bn	bien
+tqm	te quiero mucho
+tkm	te quiero mucho
+grax	gracias
+msj	mensaje
+nd	nada
+dnd	donde
+toy	estoy
+tas	estás
+sta	está
+salu2	saludos
+wey	amigo
+we	amigo
+bro	amigo

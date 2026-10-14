@@ -1,0 +1,22 @@
+# German chat shorthand -> full words, applied before translating incoming German.
+kp	keine Ahnung
+ka	keine Ahnung
+vllt	vielleicht
+evtl	eventuell
+gn	gute Nacht
+hdl	hab dich lieb
+nix	nichts
+ne	nein
+nö	nein
+jz	jetzt
+jetz	jetzt
+grad	gerade
+bissl	bisschen
+bisl	bisschen
+hab	habe
+is	ist
+iwie	irgendwie
+iwas	irgendwas
+iwo	irgendwo
+mom	Moment
+sry	Entschuldigung

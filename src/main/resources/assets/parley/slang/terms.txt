@@ -1,0 +1,17 @@
+# Game names and terms written in brand casing before translating in either direction.
+# Translation models leave capitalised names alone but translate lowercase ones ("bedwars" -> "guerras de cama").
+bedwars	BedWars
+skywars	SkyWars
+skyblock	SkyBlock
+hypixel	Hypixel
+uhc	UHC
+pvp	PvP
+kb	KB
+cps	CPS
+duels	Duels
+minemen	Minemen
+pikanetwork	PikaNetwork
+lunar	Lunar
+optifine	OptiFine
+gg	GG
+ez	EZ

@@ -1,0 +1,43 @@
+# Portuguese chat shorthand -> full words, applied before translating incoming Portuguese.
+vc	você
+vcs	vocês
+voce	você
+pq	porque
+q	que
+oq	o que
+n	não
+nao	não
+ñ	não
+tb	também
+tbm	também
+ngm	ninguém
+td	tudo
+tds	todos
+blz	beleza
+mt	muito
+mto	muito
+msm	mesmo
+cmg	comigo
+ctg	contigo
+kd	cadê
+cade	cadê
+hj	hoje
+vlw	valeu
+obg	obrigado
+pfv	por favor
+pf	por favor
+pls	por favor
+qnd	quando
+qm	quem
+tô	estou
+to	estou
+ta	está
+tá	está
+tao	tão
+eh	é
+naum	não
+kkk	haha
+kkkk	haha
+kkkkk	haha
+rs	haha
+mano	cara

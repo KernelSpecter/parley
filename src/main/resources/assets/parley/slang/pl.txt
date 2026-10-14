@@ -1,0 +1,12 @@
+# Polish chat shorthand -> full words, applied before translating incoming Polish.
+nwm	nie wiem
+spk	spoko
+dzk	dzięki
+dzieki	dzięki
+pzdr	pozdrawiam
+pls	proszę
+plz	proszę
+nmzc	nie ma za co
+jj	już
+cb	ciebie
+mnb	mnie

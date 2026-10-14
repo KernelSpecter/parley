@@ -1,0 +1,149 @@
+# English chat shorthand -> plain English, used before translating outgoing messages.
+# Part of this list comes from github.com/c-Cyril-l/Internet-Abbreviations (MIT, Copyright (c) 2018 c-Cyril-l).
+aaf	as a friend
+abt	about
+adad	another day another dollar
+adih	another day in hell
+adip	another day in paradise
+aeap	as early as possible
+afaik	as far as I know
+afair	as far as I remember
+afap	as far as possible
+afk	away from keyboard
+alol	actually laughing out loud
+ama	ask me anything
+asap	as soon as possible
+atb	all the best
+atm	at the moment
+b4	before
+bbiab	be back in a bit
+bbl	be back later
+bc	because
+bcnu	be seein' you
+bff	best friends forever
+bfn	bye for now
+brb	be right back
+btw	by the way
+cant	can't
+cmiiw	correct me if I'm wrong
+coz	because
+cul	see you later
+cuz	because
+dftt	don't feed the trolls
+dgaf	don't give a fuck
+didnt	didn't
+dnd	do not disturb
+doesnt	doesn't
+dont	don't
+dunno	don't know
+eli5	explain like I'm five
+eta	estimated time of arrival
+f9	fine
+ffs	for fuck's sake
+fml	fuck my life
+foaf	friend of a friend
+ftfy	fixed that for you
+ftl	for the loss
+ftr	for the record
+ftw	for the win
+fu	fuck you
+fwiw	for what it's worth
+fyi	for your information
+g2g	got to go
+gbtw	get back to work
+gfu	good for you
+gfy	go fuck yourself
+ggs	good games
+gimme	give me
+gmta	great minds think alike
+gonna	going to
+gotta	got to
+gratz	congratulations
+gtfo	get the fuck out
+gtg	got to go
+hbd	happy birthday
+hbu	how about you
+icymi	in case you missed it
+idc	I don't care
+idk	I don't know
+iiuc	if I understand correctly
+ik	I know
+ikr	I know, right
+ily	I love you
+im	I'm
+imo	in my opinion
+iow	in other words
+irl	in real life
+isnt	isn't
+istg	I swear to god
+istm	it seems to me
+itym	I think you mean
+ive	I've
+jas	just a sec
+kos	kill on sight
+lemme	let me
+lfg	looking for group
+lfm	looking for more
+lmbo	laughing my butt off
+lmfao	laughing my fucking ass off
+lmk	let me know
+ltns	long time no see
+m8	mate
+motd	message of the day
+myob	mind your own business
+ngl	not going to lie
+np	no problem
+nvm	never mind
+omfg	oh my fucking god
+omw	on my way
+otb	off to bed
+otoh	on the other hand
+otw	on the way
+plmk	please let me know
+pls	please
+plss	please
+plz	please
+pmsl	pissing myself laughing
+pov	point of view
+ppl	people
+r	are
+rl	real life
+rn	right now
+smh	shaking my head
+stfu	shut the fuck up
+tbh	to be honest
+tfw	that feel when
+tgif	thank God it's friday
+thats	that's
+tho	though
+thx	thanks
+tia	thanks in advance
+til	today I learned
+tmi	too much information
+tos	terms of service
+ttfn	ta ta for now
+ttys	talk to you soon
+ty	thank you
+tyal	thank you a lot
+tysm	thank you so much
+tyt	take your time
+tyvm	thank you very much
+u	you
+ur	your
+urs	yours
+w8	wait
+wanna	want to
+wasnt	wasn't
+wbu	what about you
+wdym	what do you mean
+whats	what's
+wont	won't
+wtb	want to buy
+wtg	way to go
+wth	what the hell
+wts	want to sell
+wtt	want to trade
+wyd	what are you doing
+y	why
+ya	you
+youre	you're

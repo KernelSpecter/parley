@@ -1,0 +1,65 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            name = "forge"
+            url = "https://maven.minecraftforge.net"
+        }
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.1-SNAPSHOT'
+    }
+}
+apply plugin: 'net.minecraftforge.gradle.forge'
+
+version = "1.0.0"
+group = "com.kernelspecter.parley"
+archivesBaseName = "parley"
+
+sourceCompatibility = targetCompatibility = 1.8
+tasks.withType(JavaCompile) { options.encoding = 'UTF-8' }
+
+minecraft {
+    version = "1.8.9-11.15.1.2318-1.8.9"
+    runDir = "run"
+    mappings = "stable_20"
+}
+
+configurations {
+    // Libraries copied into the mod jar (Forge 1.8.9 has no dependency loading).
+    embed
+    compile.extendsFrom(embed)
+}
+
+dependencies {
+    embed 'com.microsoft.onnxruntime:onnxruntime:1.31.0'
+    testCompile 'junit:junit:4.12'
+}
+
+jar {
+    from(configurations.embed.collect { zipTree(it) }) {
+        exclude 'META-INF/**'
+        // Windows x64 is the only platform Lunar 1.8.9 ships for this player; drop the rest (~150 MB).
+        exclude 'ai/onnxruntime/native/linux-*/**'
+        exclude 'ai/onnxruntime/native/osx-*/**'
+    }
+}
+
+test {
+    // Engine tests need real model files; they are skipped when this is unset.
+    systemProperty 'parley.models', System.getenv('PARLEY_MODELS') ?: ''
+    testLogging { events 'passed', 'skipped', 'failed'; exceptionFormat 'full'; showStandardStreams = true }
+}
+
+processResources {
+    inputs.property "version", project.version
+    inputs.property "mcversion", project.minecraft.version
+
+    from(sourceSets.main.resources.srcDirs) {
+        include 'mcmod.info'
+        expand 'version': project.version, 'mcversion': project.minecraft.version
+    }
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'mcmod.info'
+    }
+}

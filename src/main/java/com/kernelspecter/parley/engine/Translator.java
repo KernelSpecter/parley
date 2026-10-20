@@ -22,6 +22,7 @@ import java.util.function.Consumer;
 public final class Translator {
     /** A translated incoming line. */
     public static final class Incoming {
+        /** Null when the multilingual model was left to work out the source language. */
         public final Language language;
         public final String original, translated;
 
@@ -32,6 +33,10 @@ public final class Translator {
         }
     }
 
+    /** Model for lines whose language detection isn't sure about; it recognises the source itself. */
+    private static final String MULTILINGUAL = "mul-en";
+    /** Cache key prefix for multilingual results, so automatic translation never reuses them. */
+    private static final String UNSURE = "\u0000";
     private static final int MAX_QUEUED_INCOMING = 16, MAX_PENDING_PER_MODEL = 3, CACHE_SIZE = 500;
     /** Loaded models cost about 280 MB each, so ones that sit unused are freed. */
     private static final long UNLOAD_AFTER_MILLIS = 5 * 60 * 1000L, IDLE_CHECK_MILLIS = 60 * 1000L;
@@ -98,44 +103,63 @@ public final class Translator {
      * when there is something worth showing: English, slang-only and unsure lines produce nothing.
      */
     public void translateIncoming(final String text, final Consumer<Incoming> done) {
-        enqueue(incoming, new Runnable() {
+        enqueue(incoming, incomingTask(text, false, done, null));
+    }
+
+    /**
+     * Translates a chat line the player picked, skipping the checks that decide whether a line is
+     * worth translating. Lines whose language isn't clear go through the multilingual model.
+     * {@code done} or {@code failed} is called once, or nothing if a needed model fails to download
+     * (the download listener reports that).
+     */
+    public void translateRequested(final String text, final Consumer<Incoming> done, final Consumer<String> failed) {
+        enqueue(outgoing, incomingTask(text, true, done, failed));
+    }
+
+    private Runnable incomingTask(final String text, final boolean requested, final Consumer<Incoming> done, final Consumer<String> failed) {
+        return new Runnable() {
             @Override public void run() {
                 Incoming hit;
                 synchronized (cache) {
                     hit = cache.get(text);
+                    if (hit == null && requested) hit = cache.get(UNSURE + text);
                 }
                 if (hit != null) { done.accept(hit); return; }
 
                 LanguageDetector.Result r = detector.detect(text);
-                if (r.code == null || r.isEnglish() || r.confidence < LanguageDetector.MIN_CONFIDENCE) return;
-                Language lang = Language.find(r.code);
-                if (lang == null || ignored.contains(lang.code)) return;
+                Language lang = r.code == null || r.isEnglish() || r.confidence < LanguageDetector.MIN_CONFIDENCE
+                        ? null : Language.find(r.code);
+                if (!requested && (lang == null || ignored.contains(lang.code))) return;
+                String model = lang != null ? lang.toEnglish : MULTILINGUAL;
 
-                if (!models.isDownloaded(lang.toEnglish)) {
-                    if (!autoDownload) return;
+                if (!models.isDownloaded(model)) {
+                    if (!requested && !autoDownload) return;
                     synchronized (waitingForModel) {
-                        List<Runnable> w = waitingForModel.get(lang.toEnglish);
-                        if (w == null) waitingForModel.put(lang.toEnglish, w = new ArrayList<Runnable>());
-                        if (w.size() < MAX_PENDING_PER_MODEL) w.add(this);
+                        List<Runnable> w = waitingForModel.get(model);
+                        if (w == null) waitingForModel.put(model, w = new ArrayList<Runnable>());
+                        if (requested || w.size() < MAX_PENDING_PER_MODEL) w.add(this);
                     }
-                    models.download(lang.toEnglish);
+                    models.download(model);
                     return;
                 }
                 String out;
                 try {
-                    out = models.get(lang.toEnglish).translate(slang.expand(text, lang.code), null);
+                    out = models.get(model).translate(slang.expand(text, lang != null ? lang.code : "mul"), null);
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
                 // A translation that reads like the input means it was English (or a name) all along.
-                if (out.isEmpty() || Text.similar(out, text)) return;
+                if (out.isEmpty() || Text.similar(out, text)) {
+                    if (requested) failed.accept(out.isEmpty() ? "The translation came out empty." : "That line already reads as English.");
+                    return;
+                }
                 Incoming result = new Incoming(lang, text, out);
                 synchronized (cache) {
-                    cache.put(text, result);
+                    cache.put(lang != null ? text : UNSURE + text, result);
                 }
                 done.accept(result);
             }
-        });
+        };
     }
 
     /**
@@ -196,7 +220,7 @@ public final class Translator {
                     if (incoming.isEmpty() && outgoing.isEmpty()) break;
                 }
                 if (!running) return;
-                // The player's own messages go first.
+                // What the player asked for goes first.
                 task = !outgoing.isEmpty() ? outgoing.pollFirst() : incoming.pollFirst();
             }
             if (task != null) {

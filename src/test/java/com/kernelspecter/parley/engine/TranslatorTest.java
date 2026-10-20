@@ -61,6 +61,32 @@ public class TranslatorTest {
         assertNull(in("gg ez"));
     }
 
+    /** A clicked line: the translation, or the reason there is none as "failed: ...". */
+    private static Object requested(String text) throws Exception {
+        CompletableFuture<Object> f = new CompletableFuture<Object>();
+        t.translateRequested(text, f::complete, e -> f.complete("failed: " + e));
+        return f.get(10, TimeUnit.SECONDS);
+    }
+
+    @Test public void requestedSpanishIsLabelled() throws Exception {
+        Translator.Incoming r = (Translator.Incoming) requested("alguien quiere jugar bedwars conmigo?");
+        assertEquals("es", r.language.code);
+    }
+
+    @Test public void requestedEnglishSaysSo() throws Exception {
+        assertEquals("failed: That line already reads as English.", requested("anyone want to play bedwars with me"));
+    }
+
+    @Test public void requestedUnsureLineGoesThroughMultilingual() throws Exception {
+        // Too short for detection to be sure, so automatic translation skips it.
+        String text = "vamos";
+        assertTrue(t.detect(text).toString(), t.detect(text).confidence < LanguageDetector.MIN_CONFIDENCE);
+        assertNull(in(text));
+        Translator.Incoming r = (Translator.Incoming) requested(text);
+        System.out.println(r.translated);
+        assertNull(r.language);
+    }
+
     @Test public void outgoingKeepsGameNames() throws Exception {
         CompletableFuture<String> f = new CompletableFuture<String>();
         t.translateOutgoing("anyone wanna play bedwars with me?", Language.find("es"), f::complete, e -> f.completeExceptionally(new AssertionError(e)));

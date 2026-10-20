@@ -57,7 +57,7 @@ final class ChatLine {
         return i;
     }
 
-    private static boolean hasLetter(String s, int end) {
+    static boolean hasLetter(String s, int end) {
         for (int i = 0; i < end; i++) if (Character.isLetter(s.charAt(i))) return true;
         return false;
     }

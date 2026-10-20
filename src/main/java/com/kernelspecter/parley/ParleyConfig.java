@@ -13,7 +13,10 @@ import java.util.Set;
 
 /** Settings changed through /tr, kept in config/parley/parley.properties. */
 public final class ParleyConfig {
-    public boolean incoming = true;
+    /** Translate every incoming line automatically, not just the ones clicked. */
+    public boolean translateAll = false;
+    /** Put a clickable [T] in front of chat lines. */
+    public boolean button = true;
     public boolean autoDownload = true;
     /** Language code everything you type is translated into, or empty when off. */
     public String send = "";
@@ -34,7 +37,9 @@ public final class ParleyConfig {
             Parley.LOG.warn("Could not read " + file + ": " + e);
             return;
         }
-        incoming = Boolean.parseBoolean(p.getProperty("incoming", "true"));
+        // 1.0 wrote incoming=true for everyone; it is not carried over, so clicking is the new default.
+        translateAll = Boolean.parseBoolean(p.getProperty("translateAll", "false"));
+        button = Boolean.parseBoolean(p.getProperty("button", "true"));
         autoDownload = Boolean.parseBoolean(p.getProperty("autoDownload", "true"));
         send = p.getProperty("send", "").trim();
         ignored.clear();
@@ -43,7 +48,8 @@ public final class ParleyConfig {
 
     public void save() {
         Properties p = new Properties();
-        p.setProperty("incoming", String.valueOf(incoming));
+        p.setProperty("translateAll", String.valueOf(translateAll));
+        p.setProperty("button", String.valueOf(button));
         p.setProperty("autoDownload", String.valueOf(autoDownload));
         p.setProperty("send", send);
         StringBuilder ig = new StringBuilder();
@@ -58,6 +64,6 @@ public final class ParleyConfig {
     }
 
     @Override public String toString() {
-        return "incoming=" + incoming + " send=" + send + " auto=" + autoDownload + " ignore=" + Arrays.toString(ignored.toArray());
+        return "translateAll=" + translateAll + " button=" + button + " send=" + send + " auto=" + autoDownload + " ignore=" + Arrays.toString(ignored.toArray());
     }
 }

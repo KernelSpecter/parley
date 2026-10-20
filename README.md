@@ -3,22 +3,22 @@
 Chat translation for Minecraft 1.8.9 (Forge, works in Lunar Client) that runs entirely on your own PC.
 No Google, DeepL or Bing behind it, so there are no API keys, no rate limits and nothing stops working after a few hundred messages.
 
-Incoming chat in another language gets a translated line under it, tagged with the language it came from:
+Every chat line gets a small `[T]` in front of it. Click it and the line is translated into English, tagged with the language it came from:
 
 ```
-[VIP] Mateo: alguien quiere jugar bedwars conmigo?
+[T] [VIP] Mateo: alguien quiere jugar bedwars conmigo?
 [ES] [VIP] Mateo: Anybody want to play BedWars with me?
 ```
 
-Hover the translated line to see the original. You can also write in English and have Parley send your messages in another language.
+Hover the translated line to see the original. If you'd rather have every foreign line translated without clicking, turn that on with `/tr in on`. You can also write in English and have Parley send your messages in another language.
 
 ## Install
 
-1. Download `parley-1.0.0.jar` from the releases page.
+1. Download `parley-1.1.0.jar` from the releases page.
 2. Put it in your Forge 1.8.9 mods folder. For Lunar Client that is `%USERPROFILE%\.lunarclient\profiles\1.8\mods\forge-1.8.9\`.
 3. Start the game.
 
-The first time a language shows up in chat, Parley downloads the model for it (about 110 MB, once). Messages in that language are translated as soon as the download finishes. Models are stored in `.minecraft\config\parley\models\`.
+The first time you translate a language, Parley downloads the model for it (about 110 MB, once) and shows the translation as soon as the download finishes. Models are stored in `.minecraft\config\parley\models\`.
 
 Windows 64-bit only for now.
 
@@ -27,12 +27,13 @@ Windows 64-bit only for now.
 | Command | What it does |
 | --- | --- |
 | `/tr` | Status and help |
-| `/tr in on` / `off` | Translate chat you receive into English (on by default) |
+| `/tr in on` / `off` | Translate every foreign line automatically instead of on click (off by default) |
+| `/tr button on` / `off` | Show or hide the `[T]` buttons |
 | `/tr out <language>` | Translate everything you type into that language. Commands are never touched |
 | `/tr out off` | Send messages as you type them again |
 | `/tr say <language> <message>` | Translate and send a single message |
 | `/tr langs` | Supported languages and which models are downloaded |
-| `/tr ignore <language>` | Stop translating a language you can read. Run it again to undo |
+| `/tr ignore <language>` | Leave a language you can read out of automatic translation. Run it again to undo |
 | `/tr download <language>` | Download a language's models now instead of on first use |
 | `/tr auto on` / `off` | Download models automatically when a new language appears |
 
@@ -40,7 +41,8 @@ Languages can be given as a code (`es`) or a name (`spanish`). `/parley` works a
 
 ## What it avoids
 
-- **English is never sent through a model.** Every line is checked first, and English chat, slang like `gg ez` or `rn`, and lines Parley isn't sure about are left alone. If a translation comes back almost identical to the original, it is dropped.
+- **Clicking always translates.** A clicked line skips the language checks below. If Parley can't tell which language it is, the multilingual model works it out, and a line that turns out to be English gets a short note instead of a copy of itself.
+- **Automatic mode leaves English alone.** With `/tr in on`, every line is checked first, and English chat, slang like `gg ez` or `rn`, and lines Parley isn't sure about are skipped. If a translation comes back almost identical to the original, it is dropped.
 - **Game terms stay intact.** BedWars, SkyWars, SkyBlock, UHC and similar names are kept as they are instead of becoming "guerras de cama".
 - **Chat shorthand is expanded before translating**, so `u`, `pls` and `idk` in your messages, or `xq`, `vc` and `tmb` in other people's, come out as real words.
 

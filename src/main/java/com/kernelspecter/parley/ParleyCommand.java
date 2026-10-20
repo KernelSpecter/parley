@@ -13,7 +13,7 @@ import net.minecraft.util.BlockPos;
 
 /** /tr: everything Parley does is driven from here. */
 final class ParleyCommand extends CommandBase {
-    private static final List<String> SUBCOMMANDS = Arrays.asList("in", "out", "say", "langs", "ignore", "download", "auto");
+    private static final List<String> SUBCOMMANDS = Arrays.asList("in", "button", "out", "say", "langs", "ignore", "download", "auto");
 
     private final Parley mod;
 
@@ -25,7 +25,7 @@ final class ParleyCommand extends CommandBase {
 
     @Override public List<String> getCommandAliases() { return Collections.singletonList("parley"); }
 
-    @Override public String getCommandUsage(ICommandSender sender) { return "/tr [in|out|say|langs|ignore|download|auto]"; }
+    @Override public String getCommandUsage(ICommandSender sender) { return "/tr [in|button|out|say|langs|ignore|download|auto]"; }
 
     @Override public int getRequiredPermissionLevel() { return 0; }
 
@@ -36,12 +36,24 @@ final class ParleyCommand extends CommandBase {
         String sub = args.length == 0 ? "" : args[0].toLowerCase();
         ParleyConfig c = mod.config;
         switch (sub) {
+            case "t":
+                // Sent by the [T] buttons in chat.
+                if (args.length == 2 && args[1].matches("\\d{1,9}")) mod.translateClicked(Integer.parseInt(args[1]));
+                break;
             case "in":
                 if (args.length == 2 && onOff(args[1]) != null) {
-                    c.incoming = onOff(args[1]);
+                    c.translateAll = onOff(args[1]);
                     mod.applyConfig();
                 }
-                Parley.say("Incoming chat translation is " + (c.incoming ? "§aon" : "§coff") + "§7.");
+                Parley.say(c.translateAll ? "Every foreign chat line is translated §aautomatically§7."
+                        : "Chat is translated when you click §8[§3T§8]§7. §f/tr in on§7 translates everything automatically.");
+                break;
+            case "button":
+                if (args.length == 2 && onOff(args[1]) != null) {
+                    c.button = onOff(args[1]);
+                    mod.applyConfig();
+                }
+                Parley.say("The §8[§3T§8]§7 button in front of chat lines is " + (c.button ? "§aon" : "§coff") + "§7.");
                 break;
             case "out":
                 if (args.length != 2) { Parley.say("Usage: /tr out <language> or /tr out off"); break; }
@@ -100,9 +112,11 @@ final class ParleyCommand extends CommandBase {
     private void help() {
         Language send = mod.sendLanguage();
         Parley.say("§fParley " + Parley.VERSION + "§7, offline chat translation.");
-        Parley.say("Incoming: " + (mod.config.incoming ? "§aon" : "§coff") + "§7. Typing in: §f"
+        Parley.say("Incoming: §f" + (mod.config.translateAll ? "automatic" : "on click") + "§7. Typing in: §f"
                 + (send == null ? "as written" : send.name) + "§7.");
-        Parley.say("§f/tr in on|off§7  translate chat you receive into English");
+        Parley.say("Click §8[§3T§8]§7 in front of a chat line to translate it into English.");
+        Parley.say("§f/tr in on|off§7  translate every foreign line automatically");
+        Parley.say("§f/tr button on|off§7  show or hide the [T] buttons");
         Parley.say("§f/tr out <language>|off§7  translate everything you type");
         Parley.say("§f/tr say <language> <message>§7  translate and send one message");
         Parley.say("§f/tr langs§7  languages and downloaded models");
@@ -162,7 +176,7 @@ final class ParleyCommand extends CommandBase {
         if (args.length == 1) return getListOfStringsMatchingLastWord(args, SUBCOMMANDS);
         if (args.length == 2) {
             String sub = args[0].toLowerCase();
-            if (sub.equals("in") || sub.equals("auto")) return getListOfStringsMatchingLastWord(args, "on", "off");
+            if (sub.equals("in") || sub.equals("button") || sub.equals("auto")) return getListOfStringsMatchingLastWord(args, "on", "off");
             if (sub.equals("out") || sub.equals("say") || sub.equals("ignore") || sub.equals("download")) {
                 List<String> codes = new ArrayList<String>();
                 if (sub.equals("out")) codes.add("off");

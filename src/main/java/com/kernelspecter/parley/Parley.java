@@ -1,12 +1,15 @@
 package com.kernelspecter.parley;
 
 import java.io.File;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import com.kernelspecter.parley.engine.Language;
 import com.kernelspecter.parley.engine.ModelStore;
 import com.kernelspecter.parley.engine.Translator;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiChat;
+import net.minecraft.event.ClickEvent;
 import net.minecraft.event.HoverEvent;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatStyle;
@@ -18,6 +21,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import org.apache.logging.log4j.LogManager;
@@ -27,16 +31,24 @@ import org.apache.logging.log4j.Logger;
         acceptedMinecraftVersions = "[1.8.9]", clientSideOnly = true)
 public class Parley {
     public static final String MODID = "parley";
-    public static final String VERSION = "1.0.0";
+    public static final String VERSION = "1.1.0";
     public static final Logger LOG = LogManager.getLogger("Parley");
 
     /** Chat allows 100 characters per message in 1.8. */
     private static final int CHAT_LIMIT = 100;
+    /** Chat keeps 100 lines by default, so older [T] buttons have scrolled away anyway. */
+    private static final int CLICKABLE_LINES = 200;
 
     private static Parley instance;
 
     ParleyConfig config;
     Translator translator;
+
+    /** Lines with a [T] button, by the id in the button's command. Only touched on the client thread. */
+    private final Map<Integer, ChatLine> clickable = new LinkedHashMap<Integer, ChatLine>() {
+        @Override protected boolean removeEldestEntry(Map.Entry<Integer, ChatLine> e) { return size() > CLICKABLE_LINES; }
+    };
+    private int nextId;
 
     static Parley get() { return instance; }
 
@@ -73,18 +85,46 @@ public class Parley {
         return config.send.isEmpty() ? null : Language.find(config.send);
     }
 
-    @SubscribeEvent
+    /** Runs last so other mods matching chat text see the line before the [T] button is added. */
+    @SubscribeEvent(priority = EventPriority.LOWEST)
     public void onChat(ClientChatReceivedEvent event) {
-        if (!config.incoming || event.type == 2 || event.message == null) return; // 2 is the action bar
+        if (event.type == 2 || event.message == null) return; // 2 is the action bar
         final ChatLine line = ChatLine.parse(event.message.getFormattedText());
-        if (line.body.length() < 2 || isOwnMessage(line)) return;
-        translator.translateIncoming(line.body, result -> Minecraft.getMinecraft().addScheduledTask(() -> {
-            IChatComponent msg = new ChatComponentText("§8[§3" + result.language.tag() + "§8] §r"
-                    + line.prefix + result.translated);
+        if (line.body.length() < 2 || !ChatLine.hasLetter(line.body, line.body.length()) || isOwnMessage(line)) return;
+        if (config.button) event.message = withButton(event.message, line);
+        if (config.translateAll) translator.translateIncoming(line.body, result -> show(line, result));
+    }
+
+    private IChatComponent withButton(IChatComponent message, ChatLine line) {
+        int id = nextId++;
+        clickable.put(id, line);
+        IChatComponent button = new ChatComponentText("§8[§3T§8] ");
+        button.setChatStyle(new ChatStyle()
+                .setChatClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/tr t " + id))
+                .setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText("§7Translate into English"))));
+        return new ChatComponentText("").appendSibling(button).appendSibling(message);
+    }
+
+    /** Called when a [T] button is clicked. */
+    void translateClicked(int id) {
+        final ChatLine line = clickable.get(id);
+        if (line == null) {
+            say("That message is too old to translate.");
+            return;
+        }
+        translator.translateRequested(line.body, result -> show(line, result),
+                error -> Minecraft.getMinecraft().addScheduledTask(() -> say(error)));
+    }
+
+    private static void show(ChatLine line, Translator.Incoming result) {
+        Minecraft.getMinecraft().addScheduledTask(() -> {
+            String tag = result.language == null ? "?" : result.language.tag();
+            String from = result.language == null ? "Translated" : result.language.name;
+            IChatComponent msg = new ChatComponentText("§8[§3" + tag + "§8] §r" + line.prefix + result.translated);
             msg.setChatStyle(new ChatStyle().setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
-                    new ChatComponentText("§7" + result.language.name + " to English\n§f" + result.original))));
+                    new ChatComponentText("§7" + from + " to English\n§f" + result.original))));
             print(msg);
-        }));
+        });
     }
 
     private static boolean isOwnMessage(ChatLine line) {
